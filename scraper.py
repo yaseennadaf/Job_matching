@@ -77,6 +77,12 @@ def fetch_jobs() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    from pathlib import Path
+
     result = fetch_jobs()
-    result.to_csv(OUTPUT_PATH, index=False)
-    print(f"\nSaved {len(result)} Pune job(s) to {OUTPUT_PATH}")
+
+    output = Path(OUTPUT_PATH)
+    output.parent.mkdir(parents=True, exist_ok=True)   # ← this line is the fix
+
+    result.to_csv(output, index=False)
+    print(f"\nSaved {len(result)} Pune job(s) to {output}")
