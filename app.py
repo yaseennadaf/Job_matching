@@ -59,14 +59,11 @@ if "scraped_at" in jobs_df.columns:
     st.caption(f"Data last refreshed: {jobs_df['scraped_at'].iloc[0]}")
 
 # ---------- Permanent dismissed list (from GitHub) ----------
-# Always start from the file that is committed in the repo
 permanent_dismissed = load_dismissed()
 
-# Session can hold *additional* dismissals that have not been committed yet
 if "pending_dismissed" not in st.session_state:
     st.session_state.pending_dismissed = set()
 
-# # Combined set used for filtering
 all_dismissed = permanent_dismissed | st.session_state.pending_dismissed
 
 # Filter out dismissed jobs
@@ -153,7 +150,6 @@ if "job_url" in filtered.columns and not filtered.empty:
             st.rerun()
 
     with col2:
-        # Build the full list that should be committed to GitHub
         new_full_list = sorted(permanent_dismissed | st.session_state.pending_dismissed)
         if new_full_list:
             st.download_button(
@@ -167,7 +163,6 @@ if "job_url" in filtered.columns and not filtered.empty:
 else:
     st.caption("No jobs left to hide.")
 
-# Show current pending count so the user knows they need to commit
 if st.session_state.pending_dismissed:
     st.info(
         f"You have **{len(st.session_state.pending_dismissed)}** newly hidden job(s) "
@@ -187,6 +182,4 @@ with st.expander("⚠️ How permanent hiding works"):
 
 The app itself cannot push to GitHub — that is a Streamlit Cloud limitation.
         """
-        )  of your experience — use the match score as a rough ranking signal, not a hard filter.
-"""
-    )
+            )
