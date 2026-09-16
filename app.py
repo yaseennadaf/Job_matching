@@ -69,7 +69,7 @@ all_dismissed = permanent_dismissed | st.session_state.pending_dismissed
 # Filter out dismissed jobs
 filtered = jobs_df.copy()
 if "job_url" in filtered.columns and all_dismissed:
-    filtered = filtered[\~filtered["job_url"].isin(all_dismissed)]
+    filtered = filtered[filtered["job_url"].isin(all_dismissed) == False]
 
 # ---------- Resume upload & matching ----------
 uploaded_resume = st.file_uploader(
