@@ -66,7 +66,7 @@ permanent_dismissed = load_dismissed()
 if "pending_dismissed" not in st.session_state:
     st.session_state.pending_dismissed = set()
 
-# Combined set used for filtering
+# # Combined set used for filtering
 all_dismissed = permanent_dismissed | st.session_state.pending_dismissed
 
 # Filter out dismissed jobs
