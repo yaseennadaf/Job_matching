@@ -1,0 +1,6 @@
+streamlit
+pandas
+python-jobspy
+pdfplumber
+docx2txt
+scikit-learn
